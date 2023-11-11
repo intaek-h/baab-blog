@@ -1,0 +1,49 @@
+/* Write your global styles here, in PostCSS syntax */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'BareunBatang';
+  src: url('/fonts/BareunBatangOTFLight.otf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'BareunBatang';
+  src: url('/fonts/BareunBatangOTFMedium.otf');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'BareunBatang';
+  src: url('/fonts/BareunBatangOTFBold.otf');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'NanumMyeongjo';
+  src: url('/fonts/NanumMyeongjoRegular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'NanumMyeongjo';
+  src: url('/fonts/NanumMyeongjoBold.ttf');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'NanumMyeongjo';
+  src: url('/fonts/NanumMyeongjoExtraBold.ttf');
+  font-weight: 700;
+}
+
+::-moz-selection {
+  background: rgba(186, 186, 186, 0.33);
+}
+
+::selection {
+  background: rgba(186, 186, 186, 0.33);
+}
