@@ -1,5 +1,6 @@
 import { Extension } from '$lib/editor/core/Extension'
 import { EDITOR_CLASS_NAMES } from '$lib/editor/core/classNames'
+import { removeLinksWithinSelection } from '$lib/editor/extensions/link/commands'
 import { pasteLink } from '$lib/editor/extensions/link/linkPaste'
 import { markPasteRule } from '$lib/editor/extensions/link/markPasteRule'
 import { createLink, updateLink } from '$lib/utils/editor/link'
@@ -16,7 +17,7 @@ export const Link = Extension.Create({
         href: { default: null },
         download: { default: null },
         target: { default: null },
-        style: { default: null }
+        style: { default: null },
       },
       inclusive: false,
       toDOM: (node) => [
@@ -24,9 +25,9 @@ export const Link = Extension.Create({
         {
           ...node.attrs,
           class: EDITOR_CLASS_NAMES.marks.link,
-          rel: 'noopener noreferrer nofollow'
+          rel: 'noopener noreferrer nofollow',
         },
-        0
+        0,
       ],
       parseDOM: [
         {
@@ -35,20 +36,21 @@ export const Link = Extension.Create({
             if (typeof dom === 'string') return
             return {
               href: dom.getAttribute('href'),
-              download: dom.getAttribute('download')
+              download: dom.getAttribute('download'),
               // target: dom.getAttribute('target'), // 운영상의 이유로 target 을 제거합니다.
               // style: dom.getAttribute('style'),  // 스타일 통합을 위해 style 을 제거합니다.
             }
-          }
-        }
-      ] as readonly ParseRule[]
+          },
+        },
+      ] as readonly ParseRule[],
     }
   },
 
   addCommands() {
     return {
       createLink,
-      updateLink
+      updateLink,
+      removeLinksWithinSelection,
     }
   },
 
@@ -61,7 +63,7 @@ export const Link = Extension.Create({
         /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-zA-Z]{2,}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g,
         this.schema.marks[this.name],
         (match) => ({ href: match })
-      )
+      ),
     ]
-  }
+  },
 })

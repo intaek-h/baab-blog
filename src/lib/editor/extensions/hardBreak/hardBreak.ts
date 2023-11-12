@@ -1,4 +1,5 @@
 import { Extension } from '$lib/editor/core/Extension'
+import type { EditorState, Transaction } from 'prosemirror-state'
 
 export const HardBreak = Extension.Create({
   name: 'hard_break',
@@ -20,7 +21,7 @@ export const HardBreak = Extension.Create({
 
   addCommands() {
     return {
-      insertHardBreak: (state, dispatch) => {
+      insertHardBreak: (state: EditorState, dispatch: (tr: Transaction) => void) => {
         if (dispatch)
           dispatch(
             state.tr.replaceSelectionWith(state.schema.nodes[this.name].create()).scrollIntoView()

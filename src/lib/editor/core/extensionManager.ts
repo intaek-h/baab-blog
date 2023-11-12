@@ -1,4 +1,4 @@
-import { Schema, type MarkSpec, type NodeSpec } from 'prosemirror-model'
+import type { Schema } from 'prosemirror-model'
 import { keymap } from 'prosemirror-keymap'
 import { history } from 'prosemirror-history'
 import { gapCursor } from 'prosemirror-gapcursor'
@@ -13,7 +13,7 @@ import { Paragraph } from '$lib/editor/extensions/paragraph'
 import { HardBreak } from '$lib/editor/extensions/hardBreak'
 import { CoreKeyboardShortcuts } from '$lib/editor/extensions/coreKeyboardShortcuts/coreKeyboardShortcuts'
 import type { Command } from 'prosemirror-state'
-import { mergeKeyboardShortcuts } from '$lib/utils/editor'
+import { createSchemaFromExtensions, mergeKeyboardShortcuts } from '$lib/utils/editor'
 
 /**
  * Extension 을 schema, plugin, input rule 등으로 분리합니다.
@@ -112,22 +112,6 @@ export class ExtensionManager {
   }
 
   private _createSchema() {
-    const marks = this.extensions
-      .filter((extension) => extension.type === 'mark')
-      .reduce((acc, extension) => {
-        // @ts-ignore
-        acc[extension.name] = extension.defineSpec!(this.extensions)
-        return acc
-      }, {} as Record<string, MarkSpec>)
-
-    const nodes = this.extensions
-      .filter((extension) => extension.type === 'node')
-      .reduce((acc, extension) => {
-        // @ts-ignore
-        acc[extension.name] = extension.defineSpec!(this.extensions)
-        return acc
-      }, {} as Record<string, NodeSpec>)
-
-    return new Schema({ marks, nodes })
+    return createSchemaFromExtensions(this.extensions)
   }
 }

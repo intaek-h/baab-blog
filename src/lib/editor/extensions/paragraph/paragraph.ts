@@ -4,6 +4,10 @@ import { Extension } from '$lib/editor/core/Extension'
 import { EDITOR_CLASS_NAMES } from '$lib/editor/core/classNames'
 import type { EditorState, Transaction } from 'prosemirror-state'
 
+/**
+ * TODO: 헤딩 바로 밑의 본문은 margin-top 이 얇아야 합니다.
+ */
+
 export const Paragraph = Extension.Create({
   name: 'paragraph',
 

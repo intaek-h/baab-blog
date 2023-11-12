@@ -8,6 +8,10 @@ export const EDITOR_CLASS_NAMES = {
   },
   marks: {
     bold: CORE_CLASS_NAME + '__bold',
-    link: CORE_CLASS_NAME + '__link'
+    link: CORE_CLASS_NAME + '__link',
+    italics: CORE_CLASS_NAME + '__italics'
+  },
+  etc: {
+    floatingMenu: CORE_CLASS_NAME + '__floating-menu'
   }
 }

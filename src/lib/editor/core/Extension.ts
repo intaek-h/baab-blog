@@ -10,7 +10,7 @@ export interface BaseExtensionConfig {
   defineSpec?: (extension: Extension[]) => MarkSpec | NodeSpec
   addPlugins?: (this: ExtensionThis) => Plugin[]
   addKeyboardShortcuts?: (this: ExtensionThis) => Record<string, Command>
-  addInputRules?: () => InputRule[]
+  addInputRules?: (this: ExtensionThis) => InputRule[]
   addCommands?: () => Record<string, any>
   addNodeView?: () => NodeView
 }

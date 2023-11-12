@@ -1,12 +1,12 @@
 <script>
-  import ArticleEditor from '$lib/components/ArticleEditor.svelte'
+  import ArticleEditor from '$lib/components/article/ArticleEditor.svelte'
 
   let title = ''
 </script>
 
 <nav class="h-[65px]">
-  <a href="/">홈으로</a>
-  <a href="/">발행</a>
+  <!-- <a href="/">홈으로</a> -->
+  <!-- <a href="/">발행</a> -->
 </nav>
 <div class="w-[700px] m-auto pt-[40px]">
   <div class="mb-20">
