@@ -47,7 +47,7 @@ export class CoreEditor extends EventEmitter<EditorEvents> {
 
     this.emit('transaction', {
       editor: this,
-      transaction
+      transaction,
     })
   }
 
@@ -59,7 +59,7 @@ export class CoreEditor extends EventEmitter<EditorEvents> {
     return EditorState.create({
       doc: this.extensionManager.schema.nodeFromJSON(doc),
       schema: this.extensionManager.schema,
-      plugins: this.extensionManager.plugins
+      plugins: this.extensionManager.plugins,
     })
   }
 
@@ -75,7 +75,7 @@ export class CoreEditor extends EventEmitter<EditorEvents> {
     this.view.updateState(
       EditorState.create({
         schema: this.extensionManager.schema,
-        plugins: this.extensionManager.plugins
+        plugins: this.extensionManager.plugins,
       })
     )
   }
@@ -94,12 +94,12 @@ export class CoreEditor extends EventEmitter<EditorEvents> {
       dispatchTransaction: this.dispatchTransaction.bind(this),
       attributes: {
         class: CORE_CLASS_NAME,
-        placeholder: this.options.placeholder || ''
+        placeholder: this.options.placeholder || '',
       },
       state: EditorState.create({
         schema: this.extensionManager.schema,
-        plugins: this.extensionManager.plugins
-      })
+        plugins: this.extensionManager.plugins,
+      }),
     })
 
     this._createNodeViews()
@@ -107,7 +107,7 @@ export class CoreEditor extends EventEmitter<EditorEvents> {
 
   private _createNodeViews() {
     this.view.setProps({
-      nodeViews: this.extensionManager.nodeViews
+      nodeViews: this.extensionManager.nodeViews,
     })
   }
 }

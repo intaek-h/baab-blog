@@ -3,7 +3,6 @@ import { setBlockType } from 'prosemirror-commands'
 import { Extension } from '$lib/editor/core/Extension'
 import { EDITOR_CLASS_NAMES } from '$lib/editor/core/classNames'
 import type { EditorState, Transaction } from 'prosemirror-state'
-import { paragraphNodeView } from '$lib/editor/extensions/paragraph/nodeview'
 
 /**
  * TODO: 헤딩 바로 밑의 본문은 margin-top 이 얇아야 합니다.
@@ -40,10 +39,5 @@ export const Paragraph = Extension.Create({
       'Ctrl-Alt-H': this.editor.commands.setBlockToParagraph,
       'Ctrl-Alt-h': this.editor.commands.setBlockToParagraph,
     }
-  },
-
-  // @ts-ignore
-  addNodeView() {
-    return paragraphNodeView
   },
 })

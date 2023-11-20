@@ -14,7 +14,7 @@ export const CoreKeyboardShortcuts = Extension.Create({
       undoInputRule,
       joinUp,
       joinDown,
-      lift
+      lift,
     }
   },
 
@@ -29,8 +29,8 @@ export const CoreKeyboardShortcuts = Extension.Create({
       [mac ? 'Shift-Mod-z' : 'Mod-y']: this.editor.commands.redo,
       'Alt-ArrowUp': this.editor.commands.joinUp,
       'Alt-ArrowDown': this.editor.commands.joinDown,
-      'Mod-BracketLeft': this.editor.commands.lift
-      // 'Backspace': this.editor.commands.undoInputRule, // 사용성이 좋지 않은 관계로 주석 처리합니다. 추후 판단해서 삭제할 수 있습니다.
+      'Mod-BracketLeft': this.editor.commands.lift,
+      Backspace: this.editor.commands.undoInputRule, // 사용성이 좋지 않은 관계로 주석 처리합니다. 추후 판단해서 삭제할 수 있습니다.
     }
-  }
+  },
 })

@@ -30,20 +30,20 @@ export const Heading = Extension.Create({
         { tag: 'h3' },
         { tag: 'h4' },
         { tag: 'h5' },
-        { tag: 'h6' }
+        { tag: 'h6' },
       ],
-      toDOM: () => ['h2', { class: EDITOR_CLASS_NAMES.nodes.heading + '__heading' }, 0]
+      toDOM: () => ['h2', { class: EDITOR_CLASS_NAMES.nodes.heading }, 0],
     }
   },
 
   addCommands() {
     return {
       setBlockToHeading: (state: EditorState, dispatch: () => void) =>
-        setBlockType(state.schema.nodes[this.name])(state, dispatch)
+        setBlockType(state.schema.nodes[this.name])(state, dispatch),
     }
   },
 
   addInputRules() {
     return [headingRule(this.schema.nodes[this.name])]
-  }
+  },
 })

@@ -14,6 +14,7 @@ import { HardBreak } from '$lib/editor/extensions/hardBreak'
 import { CoreKeyboardShortcuts } from '$lib/editor/extensions/coreKeyboardShortcuts/coreKeyboardShortcuts'
 import type { Command } from 'prosemirror-state'
 import { createSchemaFromExtensions, mergeKeyboardShortcuts } from '$lib/utils/editor'
+import { EDITOR_CLASS_NAMES } from '$lib/editor/core/classNames'
 
 /**
  * Extension 을 schema, plugin, input rule 등으로 분리합니다.
@@ -38,7 +39,12 @@ export class ExtensionManager {
   }
 
   get plugins() {
-    const corePlugins = [history(), gapCursor(), dropCursor(), keymap(baseKeymap)]
+    const corePlugins = [
+      history(),
+      gapCursor(),
+      dropCursor({ class: EDITOR_CLASS_NAMES.etc.dropCursor, width: 5, color: '#74cbd5' }),
+      keymap(baseKeymap),
+    ]
     const inputRules: InputRule[] = []
     const shortKeys: [string, Command][] = []
 
@@ -47,7 +53,7 @@ export class ExtensionManager {
       const thisValue = {
         editor: this.editor,
         schema: this.schema,
-        name: extension.name
+        name: extension.name,
       }
 
       /**
@@ -77,7 +83,7 @@ export class ExtensionManager {
     return [
       keymap(mergeKeyboardShortcuts(shortKeys)),
       ...corePlugins.concat(allPlugins.flat()),
-      buildInputRules({ rules: inputRules })
+      buildInputRules({ rules: inputRules }),
     ]
   }
 
@@ -88,7 +94,7 @@ export class ExtensionManager {
         const thisValue = {
           editor: this.editor,
           schema: this.schema,
-          name: extension.name
+          name: extension.name,
         }
 
         return { ...commands, ...extension.addCommands!.call(thisValue) }
@@ -102,7 +108,7 @@ export class ExtensionManager {
         const thisValue = {
           editor: this.editor,
           schema: this.schema,
-          name: extension.name
+          name: extension.name,
         }
 
         return [extension.name, extension.addNodeView!.call(thisValue)]

@@ -11,7 +11,7 @@ export interface BaseExtensionConfig {
   addPlugins?: (this: ExtensionThis) => Plugin[]
   addKeyboardShortcuts?: (this: ExtensionThis) => Record<string, Command>
   addInputRules?: (this: ExtensionThis) => InputRule[]
-  addCommands?: () => Record<string, any>
+  addCommands?: (this: ExtensionThis) => Record<string, any>
   addNodeView?: () => NodeView
 }
 

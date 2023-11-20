@@ -25,7 +25,6 @@
   })
 
   $: if ($editor) {
-    console.log('editor', $editor)
     $editor.on('transaction', getContentLength)
   }
 
@@ -41,7 +40,7 @@
 <button
   on:click={() => (isVisible = !isVisible)}
   aria-describedby="이 버튼을 누르면 발행하기 버튼을 화면에 표시할 수 있습니다."
-  class="w-full blink-n-times flex flex-col justify-between px-8 py-16 relative h-[200px] mt-30 bg-white cursor-pointer hover:bg-gray-50 transition-colors"
+  class="w-full blink-n-times flex flex-col justify-between px-8 py-16 relative h-[200px] my-100 bg-white cursor-pointer hover:bg-gray-50 transition-colors"
 >
   {#if isVisible}
     <div class="flex flex-col justify-center flex-1 w-full gap-16">

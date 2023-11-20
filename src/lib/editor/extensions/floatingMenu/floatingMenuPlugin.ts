@@ -1,7 +1,7 @@
 import { EDITOR_CLASS_NAMES } from '$lib/editor/core/classNames'
 import type { CoreEditor } from '$lib/editor/core/editor'
 import { Link } from '$lib/editor/extensions/link/link'
-import { Plugin, PluginKey } from 'prosemirror-state'
+import { Plugin, PluginKey, TextSelection } from 'prosemirror-state'
 import type { EditorView } from 'prosemirror-view'
 
 export const FLOATING_MENU_PLUGIN_KEY = new PluginKey('floating_menu')
@@ -71,7 +71,7 @@ class floatingMenuPluginView {
   }
 
   update(view: EditorView) {
-    if (!view.state.selection.empty) {
+    if (view.state.selection instanceof TextSelection && !view.state.selection.empty) {
       // 셀렉션에 링크가 있는 경우 링크 제거 버튼을 보여줍니다.
       if (
         view.state.doc.rangeHasMark(

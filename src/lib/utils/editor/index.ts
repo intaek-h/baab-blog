@@ -36,6 +36,8 @@ export const mergeKeyboardShortcuts = (shortcuts: [string, Command][]) => {
   return chainedShortcuts
 }
 
+// TODO: 스키마는 OrderedMap 을 사용하기 때문에 속성의 순서가 중요합니다.
+//       그러므로 extensions 의 순서를 보장해야 합니다. (paragraph 를 앞단에, 등등)
 export const createSchemaFromExtensions = (extensions: Extension[]) => {
   const marks = extensions
     .filter((extension) => extension.type === 'mark')
