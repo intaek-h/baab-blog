@@ -6,10 +6,12 @@ export const EDITOR_CLASS_NAMES = {
     heading: CORE_CLASS_NAME + '__heading',
     blockquote: CORE_CLASS_NAME + '__blockquote',
     horizontal_rule: CORE_CLASS_NAME + '__horizontal-rule',
+    image: CORE_CLASS_NAME + '__image',
     br: CORE_CLASS_NAME + '__br',
     li: CORE_CLASS_NAME + '__li',
     ul: CORE_CLASS_NAME + '__ul',
     ol: CORE_CLASS_NAME + '__ol',
+    iframe: CORE_CLASS_NAME + '__iframe',
   },
   marks: {
     bold: CORE_CLASS_NAME + '__bold',
@@ -20,5 +22,6 @@ export const EDITOR_CLASS_NAMES = {
     floatingMenu: CORE_CLASS_NAME + '__floating-menu',
     dropCursor: CORE_CLASS_NAME + '__drop-cursor',
     hrWrapper: CORE_CLASS_NAME + '__hr-wrapper',
+    iframeWrapper: CORE_CLASS_NAME + '__iframe-wrapper',
   },
 }

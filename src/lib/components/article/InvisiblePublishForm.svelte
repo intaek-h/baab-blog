@@ -40,18 +40,18 @@
 <button
   on:click={() => (isVisible = !isVisible)}
   aria-describedby="이 버튼을 누르면 발행하기 버튼을 화면에 표시할 수 있습니다."
-  class="w-full blink-n-times flex flex-col justify-between px-8 py-16 relative h-[200px] my-100 bg-white cursor-pointer hover:bg-gray-50 transition-colors"
+  class="blink-n-times relative my-100 flex h-[200px] w-full cursor-pointer flex-col justify-between bg-white px-8 py-16 transition-colors hover:bg-gray-50"
 >
   {#if isVisible}
-    <div class="flex flex-col justify-center flex-1 w-full gap-16">
-      <span class="text-gray-900 text-xl font-serif block w-full">
+    <div class="flex w-full flex-1 flex-col justify-center gap-16">
+      <span class="block w-full font-serif text-xl text-gray-900">
         이 글을 발행해서 얻을 수 있는 포인트
       </span>
 
       <!-- 그래프 영역 -->
       <div class="flex w-full items-center justify-between gap-16" in:fade>
-        <dt class="text-xs flex-1">
-          <div class="w-full h-20 rounded-r-full bg-slate-100">
+        <dt class="flex-1 text-xs">
+          <div class="h-20 w-full rounded-r-full bg-slate-100">
             <div
               class="h-full rounded-r-full bg-gradient-to-r from-white to-green-600"
               style={`width: ${$graphWidth}%`}
@@ -59,7 +59,7 @@
           </div>
         </dt>
         <dd class="min-w-[50px]">
-          <div class="overflow-hidden inline-flex justify-center items-center">
+          <div class="inline-flex items-center justify-center overflow-hidden">
             {#each digits as digit, i (digits.length - i)}
               <RollingDigits number={digit} lineHeight={20} />
             {/each}
@@ -69,10 +69,10 @@
       </div>
     </div>
 
-    <div class="flex justify-between w-full gap-12 font-serif">
+    <div class="flex w-full justify-between gap-12 font-serif">
       <button
         on:click|stopPropagation={() => (isVisible = false)}
-        class="hover:underline text-gray-300 italic"
+        class="italic text-gray-300 hover:underline"
       >
         가리기
       </button>

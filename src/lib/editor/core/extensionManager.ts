@@ -87,7 +87,7 @@ export class ExtensionManager {
     ]
   }
 
-  get commands(): Record<string, Command> {
+  get commands(): Record<string, any> {
     return this.extensions
       .filter((extension) => extension.addCommands)
       .reduce((commands, extension) => {

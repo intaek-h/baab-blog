@@ -18,7 +18,7 @@ export const pasteLink = (regexp: RegExp) => {
           !text.includes(' ')
 
         // 유튜브 링크를 붙여넣을 경우 iframe 노드를 생성합니다.
-        if (isPlainText && isYoutubeLink) {
+        if (isYoutubeLink) {
           const tr = view.state.tr
           const { from } = view.state.selection
           const { url, videoId } = generateYoutubeEmbedSrc(text)
@@ -26,7 +26,7 @@ export const pasteLink = (regexp: RegExp) => {
             // TODO: nodes[Iframe.name]
             src: url,
             'data-platform': 'youtube',
-            'data-youtube-id': videoId
+            'data-youtube-id': videoId,
           })
           tr.insert(from, iframeNode)
           view.dispatch(tr)
@@ -47,7 +47,7 @@ export const pasteLink = (regexp: RegExp) => {
         }
 
         return createLink(text)(state, dispatch)
-      }
-    }
+      },
+    },
   })
 }

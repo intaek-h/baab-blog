@@ -7,11 +7,14 @@
   import { FloatingMenu } from '$lib/editor/extensions/floatingMenu'
   import { Heading } from '$lib/editor/extensions/heading'
   import { HorizontalRule } from '$lib/editor/extensions/horizontalRule'
+  import { Iframe } from '$lib/editor/extensions/iframe'
+  import { Indicator } from '$lib/editor/extensions/indicator'
   import { Italics } from '$lib/editor/extensions/italics'
   import { Link } from '$lib/editor/extensions/link'
   import { ListItem } from '$lib/editor/extensions/listItem'
   import { OrderedList } from '$lib/editor/extensions/orderedList'
   import { editor } from '$lib/stores/editor'
+  import type { EditorProps } from 'prosemirror-view'
   import { onDestroy, onMount } from 'svelte'
 
   let element: HTMLElement
@@ -32,8 +35,13 @@
         OrderedList,
         BulletList,
         HorizontalRule,
+        Iframe,
         FloatingMenu,
+        Indicator,
       ],
+      editorProps: {
+        handleDrop: onDrop,
+      },
     })
 
     editor.set(coreEditor)
@@ -76,11 +84,46 @@
       })
     }
   }
+
+  const onDrop: EditorProps['handleDrop'] = (view, event) => {
+    event.preventDefault()
+
+    const isFileDrop = event.dataTransfer && event.dataTransfer.files.length
+
+    if ($editor && isFileDrop) {
+      const coords = { left: event.clientX, top: event.clientY }
+      const indicatorId = {}
+
+      $editor.commandManager.commands.displayUploadIndicator(indicatorId, coords)(
+        view.state,
+        view.dispatch,
+        view
+      )
+
+      // mockUpload(indicatorId)
+    }
+  }
+
+  const mockUpload = async (indicatorId: Object) => {
+    if (!$editor) return
+
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+
+    $editor.commandManager.commands.insertFailureMessage(indicatorId)(
+      $editor.view.state,
+      $editor.view.dispatch,
+      $editor.view
+    )
+
+    return 'https://picsum.photos/200/300'
+  }
 </script>
 
 <div
   bind:this={element}
-  class="article-editor relative font-serif h-full w-full [&>.ith_p]:mt-[29px] [&>.ith_h2]:font-sans [&>.ith_h2]:text-34 [&>.ith_blockquote>h2]:text-26 [&>.ith_h2]:font-bold [&>.ith_h2]:mt-[56px] [&>.ith_a]:underline [&>.ith_blockquote]:pl-23 [&>.ith_blockquote]:shadow-[inset_3px_0_0_0_#242424] [&_.ith__hr-wrapper]:my-20 [&>.ith]:text-[21px] [&>.ith]:text-[#000000d6] [&>.ith]:outline-none [&>.ith]:h-full"
+  on:drop|preventDefault
+  role="note"
+  class="article-editor relative h-full w-full font-serif [&>.ith]:h-full [&>.ith]:pb-40 [&>.ith]:text-[21px] [&>.ith]:text-[#000000d6] [&>.ith]:outline-none [&>.ith_a]:underline hover:[&>.ith_a]:cursor-pointer [&>.ith_blockquote>h2]:text-26 [&>.ith_blockquote]:pl-23 [&>.ith_blockquote]:shadow-[inset_3px_0_0_0_#242424] [&>.ith_h2]:mt-[56px] [&>.ith_h2]:font-sans [&>.ith_h2]:text-34 [&>.ith_h2]:font-bold [&>.ith_p]:mt-[29px] [&>.ith_p]:leading-[1.58] [&_.ith__hr-wrapper]:my-20"
 />
 <InvisiblePublishForm />
 
