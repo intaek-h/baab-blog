@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+
+@layer components {
+  .article-max-w {
+    width: var(--article-max-width);
+  }
+}
+
+:root {
+  --article-max-width: 700px;
+
+  @media screen and (max-width: 768px) {
+    --article-max-width: 100%;
+  }
+}
+
+.editor-paragraph {
+  @apply article-max-w m-auto mt-[29px] leading-[1.58];
+}
+
+.editor-heading {
+  @apply article-max-w m-auto mt-[56px] font-sans text-34 font-bold;
+}
+
+.editor-heading + .editor-paragraph {
+  @apply mt-8;
+}
+
+.editor-blockquote {
+  @apply article-max-w m-auto pl-23 shadow-[inset_3px_0_0_0_#242424];
+
+  & > h2 {
+    @apply text-26;
+  }
+}
+
+.editor-link {
+  @apply cursor-pointer underline;
+}
+
+.editor-floating-menu {
+  @apply absolute w-fit gap-8 bg-[#74cbd5] px-2;
+
+  & > .editor-floating-menu-arrow {
+    @apply absolute bottom-0 left-1/2 h-8 w-8 -translate-x-1/2 translate-y-1/2 rotate-45 transform bg-[#74cbd5];
+  }
+  & > .editor-floating-menu-paragraph {
+    @apply mr-8;
+  }
+  & button {
+    @apply cursor-pointer break-keep border-none bg-transparent;
+  }
+  & button:hover {
+    @apply underline;
+  }
+}
+
+.editor-horizontal-rule {
+  @apply mb-72 mt-58 h-1 border-0;
+
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.editor-hr-wrapper {
+  @apply m-auto my-20 w-4/5 cursor-pointer pb-10 pt-24;
+}
+
+.editor-ol {
+  @apply article-max-w m-auto list-decimal pl-20;
+}
+
+.editor-ul {
+  @apply article-max-w m-auto pl-20 [list-style-type:square];
+}
+
+.editor-iframe-wrapper {
+  @apply m-auto w-full md:w-[calc(var(--article-max-width)*1.2)];
+}
+
+.editor-image-fit-paragraph {
+  @apply md:article-max-w m-auto w-full;
+}
+.editor-image-wide-paragraph {
+  @apply m-auto w-full md:w-[calc(var(--article-max-width)*1.2)];
+}
+.editor-image-fit-window {
+  @apply m-auto w-full;
+}
+
+// .editor[placeholder]:before {
+//   content: attr(placeholder);
+//   color: #b3b3b1;
+//   position: absolute;
+//   pointer-events: none;
+// }
+
+.ProseMirror-selectednode {
+  outline: none !important;
+  box-shadow: 0 0 5px 2px #f3f3f3 !important;
+}
+
+.ProseMirror-gapcursor {
+  display: block;
+  top: -20px;
+  width: 700px;
+  margin: auto;
+  margin-top: 29px;
+  height: 20px; // Paragraph 노드의 line-height 과 동일해야 합니다.
+}
+
+.ProseMirror-gapcursor::after {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 1px;
+  background: black;
+  animation: ProseMirror-cursor-blink 1.1s steps(2, start) infinite;
+}
+
+.ProseMirror-focused .ProseMirror-gapcursor {
+  display: block;
+}
+
+@keyframes ProseMirror-cursor-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+@tailwind utilities;
+
+// 폰트 불러오기
+@font-face {
+  font-family: 'NanumMyeongjo';
+  src: url('/fonts/NanumMyeongjoRegular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'NanumMyeongjo';
+  src: url('/fonts/NanumMyeongjoBold.ttf');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'NanumMyeongjo';
+  src: url('/fonts/NanumMyeongjoExtraBold.ttf');
+  font-weight: 700;
+}
+
+::-moz-selection {
+  background: rgba(186, 186, 186, 0.33);
+}
+
+::selection {
+  background: rgba(186, 186, 186, 0.33);
+}

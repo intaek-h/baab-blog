@@ -28,33 +28,33 @@ class floatingMenuPluginView {
     this.container.onmousedown = (event) => event.preventDefault()
 
     this.arrow = document.createElement('div')
-    this.arrow.classList.add(`${this.CLASSNAME}__arrow`)
+    this.arrow.classList.add(`${this.CLASSNAME}-arrow`)
 
     this.titleBtn = document.createElement('button')
     this.titleBtn.textContent = '머릿말'
-    this.titleBtn.classList.add(`${this.CLASSNAME}__title`)
+    this.titleBtn.classList.add(`${this.CLASSNAME}-title`)
     this.titleBtn.onclick = () => editor.commands.setBlockToHeading(editor.state, view.dispatch)
 
     this.paragraphBtn = document.createElement('button')
     this.paragraphBtn.textContent = '본문'
-    this.paragraphBtn.classList.add(`${this.CLASSNAME}__paragraph`)
+    this.paragraphBtn.classList.add(`${this.CLASSNAME}-paragraph`)
     this.paragraphBtn.onclick = () =>
       editor.commands.setBlockToParagraph(editor.state, view.dispatch)
 
     this.boldBtn = document.createElement('button')
     this.boldBtn.textContent = '굵게'
-    this.boldBtn.classList.add(`${this.CLASSNAME}__bold`)
+    this.boldBtn.classList.add(`${this.CLASSNAME}-bold`)
     this.boldBtn.onclick = () => editor.commands.toggleBold(editor.state, view.dispatch)
 
     this.italicsBtn = document.createElement('button')
     this.italicsBtn.textContent = '기울게'
-    this.italicsBtn.classList.add(`${this.CLASSNAME}__italics`)
+    this.italicsBtn.classList.add(`${this.CLASSNAME}-italics`)
     this.italicsBtn.onclick = () => editor.commands.toggleItalics(editor.state, view.dispatch)
 
     this.linkBtn = document.createElement('button')
     this.linkBtn.style.display = 'none'
     this.linkBtn.textContent = '링크제거'
-    this.linkBtn.classList.add(`${this.CLASSNAME}__link`)
+    this.linkBtn.classList.add(`${this.CLASSNAME}-link`)
     this.linkBtn.onclick = () =>
       editor.commands.removeLinksWithinSelection(editor.state, view.dispatch)
 

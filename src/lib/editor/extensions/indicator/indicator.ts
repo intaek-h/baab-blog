@@ -32,8 +32,18 @@ export const indicatorPlugin = () =>
         if (action && action.add) {
           // 임시로 들어갈 위젯을 생성합니다.
           const widget = document.createElement('div')
+          widget.className =
+            'h-[300px] relative w-full motion-safe:animate-pulse shadow-sm bg-[#ffda78] rounded-lg'
 
-          widget.className = 'h-[300px] w-full animate-pulse bg-[#74cbd51a] rounded-lg'
+          const spinner = document.createElement('div')
+          spinner.className = 'h-30 w-30 flex absolute top-10 right-10'
+          spinner.innerHTML = `
+            <div class="motion-safe:animate-spin ![animation-timing-function:ease-in-out] inline-block w-full h-full border-[9px] border-white border-t-transparent text-blue-600 rounded-full dark:text-blue-500" role="status" aria-label="loading">
+              <span class="sr-only">Loading...</span>
+            </div>
+          `
+
+          widget.append(spinner)
 
           // 이미지가 삽입될 자리에 데코레이션이 들어갑니다. 요청이 완료되면 이미지로 대체됩니다.
           const deco = Decoration.widget(action.add.pos, widget, {

@@ -41,13 +41,16 @@ export function addHorizontalRuleNextLine(state: EditorState, dispatch: (tr: Tra
 class HorizontalRuleNodeView {
   dom: HTMLDivElement
 
-  constructor(public node: Node, public view: EditorView, public getPos: () => number) {
+  constructor(
+    public node: Node,
+    public view: EditorView,
+    public getPos: () => number
+  ) {
     const hr = document.createElement('hr')
     hr.classList.add(EDITOR_CLASS_NAMES.nodes.horizontal_rule)
 
     this.dom = document.createElement('div')
     this.dom.classList.add(EDITOR_CLASS_NAMES.etc.hrWrapper)
-    this.dom.style.width = '100%'
     this.dom.append(hr)
   }
 }

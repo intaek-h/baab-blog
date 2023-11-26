@@ -12,7 +12,7 @@ export interface BaseExtensionConfig {
   addKeyboardShortcuts?: (this: ExtensionThis) => Record<string, Command>
   addInputRules?: (this: ExtensionThis) => InputRule[]
   addCommands?: (this: ExtensionThis) => Record<string, any>
-  addNodeView?: () => NodeView
+  addNodeView?: (this: ExtensionThis) => NodeView
 }
 
 export interface MarkExtensionConfig extends BaseExtensionConfig {
