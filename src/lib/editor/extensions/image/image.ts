@@ -31,12 +31,16 @@ class ImageNodeView {
 
     let imageWidthClassName = ''
 
-    if (node.attrs.type === 'fit-paragraph') {
-      imageWidthClassName = 'editor-image-fit-paragraph'
-    } else if (node.attrs.type === 'wide-paragraph') {
-      imageWidthClassName = 'editor-image-wide-paragraph'
-    } else if (node.attrs.type === 'fit-window') {
-      imageWidthClassName = 'editor-image-fit-window'
+    switch (node.attrs.type) {
+      case 'fit-paragraph':
+        imageWidthClassName = 'editor-image-fit-paragraph'
+        break
+      case 'wide-paragraph':
+        imageWidthClassName = 'editor-image-wide-paragraph'
+        break
+      case 'fit-window':
+        imageWidthClassName = 'editor-image-fit-window'
+        break
     }
 
     const outer = crelt('div', {
@@ -50,29 +54,36 @@ class ImageNodeView {
     })
 
     const menu = crelt('div', {
-      class: tailwind`invisible absolute -top-20 left-1/2 flex -translate-x-1/2 transform rounded-md bg-gray-100 p-2 shadow-md`,
+      class: tailwind`editor-image-size-menu invisible`,
     })
-    menu.onmousedown = (e) => e.preventDefault()
 
-    const fitParagraphIcon = crelt('span', { class: 'material-symbols-outlined' }, 'crop_portrait')
-    const wideParagraphIcon = crelt('span', { class: 'material-symbols-outlined' }, 'crop_square')
-    const fitWindowIcon = crelt(
-      'span',
-      { class: 'material-symbols-outlined' },
-      'panorama_horizontal'
+    const fitParagraph = crelt(
+      'button',
+      { class: node.attrs.type === 'fit-paragraph' && 'underline' },
+      '기본'
     )
 
-    const fitParagraph = crelt('button', { class: 'flex' }, fitParagraphIcon)
-    fitParagraph.onclick = () => this.resize('fit-paragraph')
+    const wideParagraph = crelt(
+      'button',
+      { class: node.attrs.type === 'wide-paragraph' && 'underline' },
+      '확장'
+    )
 
-    const wideParagraph = crelt('button', { class: 'flex' }, wideParagraphIcon)
-    wideParagraph.onclick = () => this.resize('wide-paragraph')
+    const fitWindow = crelt(
+      'button',
+      { class: node.attrs.type === 'fit-window' && 'underline' },
+      '채우기'
+    )
 
-    const fitWindow = crelt('button', { class: 'flex' }, fitWindowIcon)
-    fitWindow.onclick = () => this.resize('fit-window')
+    const arrow = crelt('div', { class: 'arrow' })
 
-    crelt(menu, [fitParagraph, wideParagraph, fitWindow])
+    crelt(menu, [fitParagraph, wideParagraph, fitWindow, arrow])
     crelt(outer, [image, menu])
+
+    menu.onmousedown = (e) => e.preventDefault()
+    fitParagraph.onclick = () => this.resize('fit-paragraph')
+    wideParagraph.onclick = () => this.resize('wide-paragraph')
+    fitWindow.onclick = () => this.resize('fit-window')
 
     this.dom = outer
     this.menu = menu

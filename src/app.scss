@@ -40,7 +40,7 @@
 }
 
 .editor-floating-menu {
-  @apply absolute w-fit gap-8 bg-[#74cbd5] px-2;
+  @apply absolute w-fit gap-8 bg-[#74cbd5] px-2 text-base shadow-sm;
 
   & > .editor-floating-menu-arrow {
     @apply absolute bottom-0 left-1/2 h-8 w-8 -translate-x-1/2 translate-y-1/2 rotate-45 transform bg-[#74cbd5];
@@ -81,6 +81,17 @@
 
 .editor-iframe-wrapper {
   @apply m-auto w-full md:w-[calc(var(--article-max-width)*1.2)];
+}
+
+.editor-image-size-menu {
+  @apply absolute -top-8 left-1/2 flex w-fit -translate-x-1/2 -translate-y-full transform gap-8 bg-[#74cbd5] px-2 text-base underline-offset-2 shadow-sm;
+
+  & > .arrow {
+    @apply absolute bottom-0 left-1/2 h-8 w-8 -translate-x-1/2 translate-y-1/2 rotate-45 transform bg-[#74cbd5];
+  }
+  & > button {
+    @apply z-10;
+  }
 }
 
 .editor-image-fit-paragraph {
