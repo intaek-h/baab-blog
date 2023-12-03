@@ -10,21 +10,30 @@
 
     if (accessToken) {
       const { data } = await api.get('/api/auth/google/callback?access_token=' + accessToken)
-      const { user } = data
+      const { user, jwt } = data
+      localStorage.setItem('base-token', jwt)
+      localStorage.setItem('user-id', user.id)
+      localStorage.setItem('user-email', user.email)
+      localStorage.setItem('user-name', user.username)
+      localStorage.setItem('user-createdAt', user.createdAt)
+      localStorage.setItem('user-updatedAt', user.updatedAt)
 
       me.set({
         id: user.id,
         email: user.email,
         name: user.username,
-        provider: user.provider,
-        confirmed: user.confirmed,
-        blocked: user.blocked,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
       })
 
-      goto('/')
+      return goto('/')
     }
+
+    localStorage.removeItem('base-token')
+    localStorage.removeItem('user-id')
+    localStorage.removeItem('user-email')
+    localStorage.removeItem('user-name')
+    goto('/')
   })
 </script>
 

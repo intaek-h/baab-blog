@@ -1,11 +1,13 @@
 <script lang="ts">
   import { fade } from 'svelte/transition'
-  import { editor } from '$lib/stores/editor'
+  import { editor, title } from '$lib/stores/editor'
   import { tweened } from 'svelte/motion'
   import { cubicOut } from 'svelte/easing'
   import { onDestroy } from 'svelte'
   import type { CoreEditor } from '$lib/editor/core/editor'
   import RollingDigits from '$lib/components/common/RollingDigits.svelte'
+  import { api } from '$lib/utils/fetch'
+  import { me } from '$lib/stores/me'
 
   let graphWidth = tweened(0, {
     duration: 300,
@@ -18,6 +20,22 @@
 
   const getContentLength = ({ editor }: { editor: CoreEditor }) => {
     contentLength = editor.getTextContent().length
+  }
+
+  const publishArticle = async () => {
+    const response = await api.post('/api/articles', {
+      data: {
+        title: $title,
+        content: $editor?.state.toJSON(),
+        preview: $editor?.getTextContent().slice(0, 100),
+        html: $editor?.serialize(),
+        slug: $title.replace(/\s/g, '-'),
+        author: {
+          connect: [{ id: $me.id }],
+        },
+      },
+    })
+    console.log(response.data)
   }
 
   onDestroy(() => {
@@ -76,7 +94,7 @@
       >
         가리기
       </button>
-      <button on:click|stopPropagation class="hover:underline">발행하기</button>
+      <button on:click|stopPropagation={publishArticle} class="hover:underline">발행하기</button>
       <span class="invisible">황인택</span>
     </div>
   {/if}

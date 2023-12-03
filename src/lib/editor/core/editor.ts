@@ -3,7 +3,7 @@ import 'prosemirror-view/style/prosemirror.css' // 에디터 여러곳에서 쓰
 import { EditorView, type EditorProps } from 'prosemirror-view'
 import { EditorState, Transaction } from 'prosemirror-state'
 import type { Extension } from '$lib/editor/core/Extension'
-import type { Node } from 'prosemirror-model'
+import { DOMSerializer, type Node } from 'prosemirror-model'
 import { CommandManager } from '$lib/editor/core/commandManager'
 import { EventEmitter, type EditorEvents } from '$lib/editor/core/eventEmitter'
 import { ExtensionManager } from '$lib/editor/core/extensionManager'
@@ -78,6 +78,16 @@ export class CoreEditor extends EventEmitter<EditorEvents> {
         plugins: this.extensionManager.plugins,
       })
     )
+  }
+
+  serialize() {
+    return (
+      DOMSerializer.fromSchema(this.extensionManager.schema).serializeFragment(
+        this.state.doc.content,
+        { document },
+        document.createElement('div')
+      ) as HTMLElement
+    ).innerHTML
   }
 
   private _createExtensionManager() {

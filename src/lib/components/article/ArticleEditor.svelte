@@ -42,7 +42,7 @@
         Indicator,
       ],
       editorProps: {
-        handleDrop: onDrop,
+        // handleDrop: onDrop,
       },
     })
 
@@ -117,7 +117,6 @@
 
 <div
   bind:this={element}
-  on:drop|preventDefault
   role="note"
   class="
     editor-parent
@@ -125,7 +124,3 @@
     [&>.editor]:h-full [&>.editor]:pb-40 [&>.editor]:text-[21px] [&>.editor]:text-[#000000d6] [&>.editor]:outline-none"
 />
 <InvisiblePublishForm />
-
-<!-- 에디터 스타일 시트로 빼기 -->
-<style>
-</style>
