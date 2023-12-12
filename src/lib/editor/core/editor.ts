@@ -52,7 +52,7 @@ export class CoreEditor extends EventEmitter<EditorEvents> {
   }
 
   getTextContent() {
-    return this.state.doc.textContent
+    return this.state.doc.textBetween(0, this.state.doc.nodeSize - 2, '\n\n')
   }
 
   createStateFromDoc(doc: Node) {

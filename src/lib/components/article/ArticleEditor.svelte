@@ -56,7 +56,6 @@
   onDestroy(() => {
     if ($editor) {
       $editor.destroy()
-      editor.set(undefined)
     }
   })
 

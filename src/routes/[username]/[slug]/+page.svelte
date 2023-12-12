@@ -1,9 +1,5 @@
 <script lang="ts">
-  import { editor } from '$lib/stores/editor.js'
-
   export let data
-
-  console.log($editor)
 
   const title = data.article.articles[0].title
   const content = data.article.articles[0].html

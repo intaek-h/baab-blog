@@ -23,19 +23,23 @@
   }
 
   const publishArticle = async () => {
-    const response = await api.post('/api/articles', {
-      data: {
-        title: $title,
-        content: $editor?.state.toJSON(),
-        preview: $editor?.getTextContent().slice(0, 100),
-        html: $editor?.serialize(),
-        slug: $title.replace(/\s/g, '-'),
-        author: {
-          connect: [{ id: $me.id }],
+    try {
+      const response = await api.post('/api/articles', {
+        data: {
+          title: $title,
+          content: $editor?.state.toJSON(),
+          preview: $editor?.getTextContent().slice(0, 100),
+          html: $editor?.serialize(),
+          slug: $title.replace(/\s/g, '-'),
+          author: {
+            connect: [{ id: $me.id }],
+          },
         },
-      },
-    })
-    console.log(response.data)
+      })
+      console.log(response.data)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   onDestroy(() => {
@@ -61,7 +65,7 @@
   class="blink-n-times relative my-100 flex h-[200px] w-full cursor-pointer flex-col justify-between bg-white px-8 py-16 transition-colors hover:bg-gray-50"
 >
   {#if isVisible}
-    <div class="flex w-full flex-1 flex-col justify-center gap-16">
+    <div class="background-image flex w-full flex-1 flex-col justify-center gap-16">
       <span class="block w-full font-serif text-xl text-gray-900">
         이 글을 발행해서 얻을 수 있는 포인트
       </span>
@@ -101,6 +105,15 @@
 </button>
 
 <style>
+  .background-image {
+    background-image: repeating-linear-gradient(
+      45deg,
+      oklch(1 0 0),
+      oklch(1 0 0) 13px,
+      oklch(0.961151 0 0) 13px,
+      oklch(0.961151 0 0) 14px
+    );
+  }
   /* 투명한 영역이 존재함을 알려주는 깜빡임 코드입니다. */
   .blink-n-times {
     animation: blinker 0.7s linear 3;

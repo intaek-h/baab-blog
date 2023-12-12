@@ -9,11 +9,12 @@ const config = {
       fontSize: pixel0To100,
     },
     fontFamily: {
-      sans: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+      sans: ['system-ui', '-apple-system', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
       serif: ['Times', 'NanumMyeongjo', 'serif'],
     },
   },
   safelist: [{ pattern: /editor-/ }],
+  plugins: [require('daisyui')],
 }
 
 module.exports = config
