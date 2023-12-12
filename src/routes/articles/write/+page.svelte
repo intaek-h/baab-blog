@@ -10,12 +10,12 @@
 
 <div on:drop|preventDefault role="document" class="m-auto pt-[40px]">
   <button on:click={showModal}>모달 열기</button>
-  <div class="m-auto mb-20 w-[700px]">
+  <div class="mb-40 w-full">
     <input
       bind:value={$title}
       type="text"
       spellcheck="false"
-      class="w-full font-serif text-[42px] text-[#000000d6] outline-none placeholder:text-[#b3b3b1]"
+      class="w-full text-center font-serif text-[42px] text-[#000000d6] outline-none placeholder:text-[#b3b3b1]"
       placeholder="제목..."
     />
   </div>
