@@ -14,6 +14,7 @@ export const EDITOR_CLASS_NAMES = {
     iframe: CORE_CLASS_NAME + '-iframe',
   },
   marks: {
+    light: CORE_CLASS_NAME + '-light',
     bold: CORE_CLASS_NAME + '-bold',
     link: CORE_CLASS_NAME + '-link',
     italics: CORE_CLASS_NAME + '-italics',

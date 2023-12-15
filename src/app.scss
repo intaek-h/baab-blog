@@ -27,6 +27,10 @@
   @apply mt-8;
 }
 
+.editor-light {
+  @apply text-[#767678];
+}
+
 .editor-blockquote {
   @apply article-max-w m-auto pl-23 text-[#607d8b] shadow-[inset_3px_0_0_0_#242424];
 

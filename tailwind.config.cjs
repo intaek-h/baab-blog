@@ -15,6 +15,9 @@ const config = {
   },
   safelist: [{ pattern: /editor-/ }],
   plugins: [require('daisyui')],
+  daisyui: {
+    prefix: 'daisy-',
+  },
 }
 
 module.exports = config

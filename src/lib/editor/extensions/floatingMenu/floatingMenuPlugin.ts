@@ -1,6 +1,7 @@
 import { EDITOR_CLASS_NAMES } from '$lib/editor/core/classNames'
 import type { CoreEditor } from '$lib/editor/core/editor'
 import { Link } from '$lib/editor/extensions/link/link'
+import crelt from 'crelt'
 import { Plugin, PluginKey, TextSelection } from 'prosemirror-state'
 import type { EditorView } from 'prosemirror-view'
 
@@ -17,6 +18,7 @@ class floatingMenuPluginView {
   CLASSNAME: string
   private __hideMenuOnMouseDown: (event: MouseEvent) => void
   arrow: HTMLDivElement
+  lightBtn: HTMLElement
 
   constructor(view: EditorView, editor: CoreEditor) {
     this.view = view
@@ -46,6 +48,9 @@ class floatingMenuPluginView {
     this.boldBtn.classList.add(`${this.CLASSNAME}-bold`)
     this.boldBtn.onclick = () => editor.commands.toggleBold(editor.state, view.dispatch)
 
+    this.lightBtn = crelt('button', { class: `${this.CLASSNAME}-light` }, '연하게')
+    this.lightBtn.onclick = () => editor.commands.toggleLight(editor.state, view.dispatch)
+
     this.italicsBtn = document.createElement('button')
     this.italicsBtn.textContent = '기울게'
     this.italicsBtn.classList.add(`${this.CLASSNAME}-italics`)
@@ -62,6 +67,7 @@ class floatingMenuPluginView {
     this.container.appendChild(this.titleBtn)
     this.container.appendChild(this.paragraphBtn)
     this.container.appendChild(this.boldBtn)
+    this.container.appendChild(this.lightBtn)
     this.container.appendChild(this.italicsBtn)
     this.container.appendChild(this.linkBtn)
     view.dom.parentNode?.appendChild(this.container)

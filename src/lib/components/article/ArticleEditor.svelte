@@ -11,6 +11,7 @@
   import { Image } from '$lib/editor/extensions/image'
   import { Indicator } from '$lib/editor/extensions/indicator'
   import { Italics } from '$lib/editor/extensions/italics'
+  import { Light } from '$lib/editor/extensions/light'
   import { Link } from '$lib/editor/extensions/link'
   import { ListItem } from '$lib/editor/extensions/listItem'
   import { OrderedList } from '$lib/editor/extensions/orderedList'
@@ -28,6 +29,7 @@
       placeholder,
       extensions: [
         Link,
+        Light,
         Bold,
         Heading,
         Italics,
@@ -35,14 +37,14 @@
         ListItem,
         OrderedList,
         BulletList,
-        HorizontalRule,
         Iframe,
         Image,
+        HorizontalRule,
         FloatingMenu,
         Indicator,
       ],
       editorProps: {
-        // handleDrop: onDrop,
+        handleDrop: onDrop,
       },
     })
 
