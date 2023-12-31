@@ -13,10 +13,18 @@ const config = {
       serif: ['Times', 'NanumMyeongjo', 'serif'],
     },
   },
-  safelist: [{ pattern: /editor-/ }],
+  safelist: [{ pattern: /^editor-.*/ }],
   plugins: [require('daisyui')],
   daisyui: {
     prefix: 'daisy-',
+    themes: [
+      {
+        light: {
+          ...require('daisyui/src/theming/themes')['light'],
+          accent: '#006241',
+        },
+      },
+    ],
   },
 }
 

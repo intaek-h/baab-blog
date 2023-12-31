@@ -15,11 +15,16 @@
   import { Link } from '$lib/editor/extensions/link'
   import { ListItem } from '$lib/editor/extensions/listItem'
   import { OrderedList } from '$lib/editor/extensions/orderedList'
+  import { getMe } from '$lib/queries/user'
   import { editor } from '$lib/stores/editor'
+  import { api } from '$lib/utils/fetch'
+  import { useQueryClient } from '@tanstack/svelte-query'
   import type { EditorProps } from 'prosemirror-view'
   import { onDestroy, onMount } from 'svelte'
 
   let element: HTMLElement
+
+  const client = useQueryClient()
 
   onMount(() => {
     const placeholder = '내용을 입력하세요.'
@@ -43,9 +48,6 @@
         FloatingMenu,
         Indicator,
       ],
-      editorProps: {
-        handleDrop: onDrop,
-      },
     })
 
     editor.set(coreEditor)
@@ -89,39 +91,57 @@
   }
 
   // @ts-ignore
-  const onDrop: EditorProps['handleDrop'] = async (view, event) => {
-    event.preventDefault()
-
+  const onDrop: DragEventHandler<HTMLDivElement> = async (event) => {
     const isFileDrop = event.dataTransfer && event.dataTransfer.files.length
 
     if ($editor && isFileDrop) {
+      const me = client.getQueryData(getMe.queryKey) as any
+
+      if (!me) return alert('로그인이 필요합니다.')
+
       const coords = { left: event.clientX, top: event.clientY }
       const indicatorId = {}
       const url = URL.createObjectURL(event.dataTransfer.files[0])
 
       $editor.commandManager.commands.displayUploadIndicator(indicatorId, coords)(
-        view.state,
-        view.dispatch,
-        view
+        $editor.view.state,
+        $editor.view.dispatch,
+        $editor.view
       )
 
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      const formdata = new FormData()
+
+      formdata.append('files', event.dataTransfer.files[0])
+      formdata.append('path', String(me.id))
+      formdata.append('refId', String(me.id))
+      formdata.append('ref', 'plugin::users-permissions.user')
+      formdata.append('field', 'uploadedImages')
+
+      console.log(me)
+
+      const res = await api.post('/api/upload', formdata, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      console.log(res)
 
       $editor.commandManager.commands.insertImage([url], indicatorId)(
-        view.state,
-        view.dispatch,
-        view
+        $editor.view.state,
+        $editor.view.dispatch,
+        $editor.view
       )
+      return true
     }
+    return false
   }
 </script>
 
 <div
   bind:this={element}
+  on:drop={onDrop}
   role="note"
   class="
     editor-parent
     relative h-full w-full font-serif
     [&>.editor]:h-full [&>.editor]:pb-40 [&>.editor]:text-[21px] [&>.editor]:text-[#000000d6] [&>.editor]:outline-none"
 />
-<InvisiblePublishForm />
+<!-- <InvisiblePublishForm /> -->

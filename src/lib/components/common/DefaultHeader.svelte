@@ -2,9 +2,7 @@
   import { getMe } from '$lib/queries/user'
   import { createQuery } from '@tanstack/svelte-query'
 
-  const query = createQuery({ ...getMe, staleTime: 1000 * 60 * 5 })
-
-  $: console.log('user', $query.data)
+  const query = createQuery({ ...getMe })
 </script>
 
 <nav class="mb-30 border-b">
